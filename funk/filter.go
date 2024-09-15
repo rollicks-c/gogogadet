@@ -28,3 +28,11 @@ func First[T any](pool []T) (T, bool) {
 func FirstNonEmpty[T NullableTypes](pool ...T) (T, bool) {
 	return First(NonEmpty(pool...))
 }
+
+func Default[T NullableTypes](exp, fallback T) T {
+	var empty T
+	if exp == empty {
+		return fallback
+	}
+	return exp
+}

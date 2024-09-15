@@ -45,3 +45,13 @@ func TestFirstNonEmpty(t *testing.T) {
 		assert.Equal(t, "", res)
 	}
 }
+func TestDefaults(t *testing.T) {
+	{
+		act := Default("a", "b")
+		assert.Equal(t, "a", act)
+	}
+	{
+		act := Default("", "b")
+		assert.Equal(t, "b", act)
+	}
+}
