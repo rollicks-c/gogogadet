@@ -7,6 +7,21 @@ import (
 
 func MoveFile(src, dst string) error {
 
+	// copy file
+	if err := CopyFile(src, dst); err != nil {
+		return err
+	}
+
+	// remove source
+	if err := os.Remove(src); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func CopyFile(src, dst string) error {
+
 	// open source
 	sourceFile, err := os.Open(src)
 	if err != nil {
@@ -26,8 +41,9 @@ func MoveFile(src, dst string) error {
 		return err
 	}
 
-	// remove source
-	if err = os.Remove(src); err != nil {
+	// flush content
+	err = destinationFile.Sync()
+	if err != nil {
 		return err
 	}
 
