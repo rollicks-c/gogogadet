@@ -61,9 +61,9 @@
 				
 				<option value="file2">github.com/rollicks-c/gogogadet/funk/filter.go (100.0%)</option>
 				
-				<option value="file3">github.com/rollicks-c/gogogadet/funk/maps.go (0.0%)</option>
+				<option value="file3">github.com/rollicks-c/gogogadet/funk/maps.go (100.0%)</option>
 				
-				<option value="file4">github.com/rollicks-c/gogogadet/funk/query.go (0.0%)</option>
+				<option value="file4">github.com/rollicks-c/gogogadet/funk/query.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -240,20 +240,20 @@ func Default[T NullableTypes](exp, fallback T) T <span class="cov8" title="1">{
 		
 		<pre class="file" id="file3" style="display: none">package funk
 
-func PickOne[T1 comparable, T2 any](data map[T1]T2) (T2, bool) <span class="cov0" title="0">{
-        for _, v := range data </span><span class="cov0" title="0">{
+func PickOne[T1 comparable, T2 any](data map[T1]T2) (T2, bool) <span class="cov8" title="1">{
+        for _, v := range data </span><span class="cov8" title="1">{
                 return v, true
         }</span>
-        <span class="cov0" title="0">var empty T2
+        <span class="cov8" title="1">var empty T2
         return empty, false</span>
 }
 
-func GetKeys[T1 comparable, T2 any](data map[T1]T2) []T1 <span class="cov0" title="0">{
+func GetKeys[T1 comparable, T2 any](data map[T1]T2) []T1 <span class="cov8" title="1">{
         keys := make([]T1, 0, len(data))
-        for k := range data </span><span class="cov0" title="0">{
+        for k := range data </span><span class="cov8" title="1">{
                 keys = append(keys, k)
         }</span>
-        <span class="cov0" title="0">return keys</span>
+        <span class="cov8" title="1">return keys</span>
 }
 </pre>
 		
@@ -265,43 +265,43 @@ import (
         "strings"
 )
 
-func Contains[T comparable](pool []T, item T) bool <span class="cov0" title="0">{
-        for _, p := range pool </span><span class="cov0" title="0">{
-                if p == item </span><span class="cov0" title="0">{
+func Contains[T comparable](pool []T, item T) bool <span class="cov8" title="1">{
+        for _, p := range pool </span><span class="cov8" title="1">{
+                if p == item </span><span class="cov8" title="1">{
                         return true
                 }</span>
         }
-        <span class="cov0" title="0">return false</span>
+        <span class="cov8" title="1">return false</span>
 }
 
-func Max[T constraints.Ordered](pool []T) T <span class="cov0" title="0">{
+func Max[T constraints.Ordered](pool ...T) T <span class="cov8" title="1">{
         var maxValue T
-        for i, p := range pool </span><span class="cov0" title="0">{
-                if i == 0 || p &gt; maxValue </span><span class="cov0" title="0">{
+        for i, p := range pool </span><span class="cov8" title="1">{
+                if i == 0 || p &gt; maxValue </span><span class="cov8" title="1">{
                         maxValue = p
                 }</span>
         }
-        <span class="cov0" title="0">return maxValue</span>
+        <span class="cov8" title="1">return maxValue</span>
 }
 
-func Min[T constraints.Ordered](pool []T) T <span class="cov0" title="0">{
+func Min[T constraints.Ordered](pool ...T) T <span class="cov8" title="1">{
         var minValue T
-        for i, p := range pool </span><span class="cov0" title="0">{
-                if i == 0 || p &lt; minValue </span><span class="cov0" title="0">{
+        for i, p := range pool </span><span class="cov8" title="1">{
+                if i == 0 || p &lt; minValue </span><span class="cov8" title="1">{
                         minValue = p
                 }</span>
         }
-        <span class="cov0" title="0">return minValue</span>
+        <span class="cov8" title="1">return minValue</span>
 }
 
-func FuzzySearch(exp string, pool []string) []string <span class="cov0" title="0">{
+func FuzzySearch(exp string, pool ...string) []string <span class="cov8" title="1">{
         sel := make([]string, 0)
-        for _, p := range pool </span><span class="cov0" title="0">{
-                if strings.HasPrefix(p, exp) </span><span class="cov0" title="0">{
+        for _, p := range pool </span><span class="cov8" title="1">{
+                if strings.HasPrefix(p, exp) </span><span class="cov8" title="1">{
                         sel = append(sel, p)
                 }</span>
         }
-        <span class="cov0" title="0">return sel</span>
+        <span class="cov8" title="1">return sel</span>
 }
 </pre>
 		
