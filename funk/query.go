@@ -15,7 +15,7 @@ func Contains[T comparable](pool []T, item T) bool {
 	return false
 }
 
-func Max[T constraints.Ordered](pool []T) T {
+func Max[T constraints.Ordered](pool ...T) T {
 	var maxValue T
 	for i, p := range pool {
 		if i == 0 || p > maxValue {
@@ -25,7 +25,7 @@ func Max[T constraints.Ordered](pool []T) T {
 	return maxValue
 }
 
-func Min[T constraints.Ordered](pool []T) T {
+func Min[T constraints.Ordered](pool ...T) T {
 	var minValue T
 	for i, p := range pool {
 		if i == 0 || p < minValue {
@@ -35,7 +35,7 @@ func Min[T constraints.Ordered](pool []T) T {
 	return minValue
 }
 
-func FuzzySearch(exp string, pool []string) []string {
+func FuzzySearch(exp string, pool ...string) []string {
 	sel := make([]string, 0)
 	for _, p := range pool {
 		if strings.HasPrefix(p, exp) {
