@@ -65,6 +65,8 @@
 				
 				<option value="file4">github.com/rollicks-c/gogogadet/funk/query.go (100.0%)</option>
 				
+				<option value="file5">github.com/rollicks-c/gogogadet/funk/transform.go (0.0%)</option>
+				
 				</select>
 			</div>
 			<div id="legend">
@@ -302,6 +304,17 @@ func FuzzySearch(exp string, pool ...string) []string <span class="cov8" title="
                 }</span>
         }
         <span class="cov8" title="1">return sel</span>
+}
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">package funk
+
+func Map[T1 comparable, T2 any](data []T1, f func(e T1) T2) []T2 <span class="cov0" title="0">{
+        result := make([]T2, len(data))
+        for i, v := range data </span><span class="cov0" title="0">{
+                result[i] = f(v)
+        }</span>
+        <span class="cov0" title="0">return result</span>
 }
 </pre>
 		
