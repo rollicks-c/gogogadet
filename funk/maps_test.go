@@ -13,9 +13,9 @@ func TestGetKeys(t *testing.T) {
 	}
 	keys := GetKeys(m)
 	assert.Equal(t, 3, len(keys))
-	assert.Equal(t, "key1", keys[0])
-	assert.Equal(t, "key2", keys[1])
-	assert.Equal(t, "key3", keys[2])
+	assert.Contains(t, []string{"key1", "key2", "key3"}, keys[0])
+	assert.Contains(t, []string{"key1", "key2", "key3"}, keys[1])
+	assert.Contains(t, []string{"key1", "key2", "key3"}, keys[2])
 }
 
 func TestPickOne(t *testing.T) {
