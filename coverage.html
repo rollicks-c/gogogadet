@@ -65,7 +65,9 @@
 				
 				<option value="file4">github.com/rollicks-c/gogogadet/funk/query.go (100.0%)</option>
 				
-				<option value="file5">github.com/rollicks-c/gogogadet/funk/transform.go (0.0%)</option>
+				<option value="file5">github.com/rollicks-c/gogogadet/funk/slices.go (100.0%)</option>
+				
+				<option value="file6">github.com/rollicks-c/gogogadet/funk/transform.go (0.0%)</option>
 				
 				</select>
 			</div>
@@ -308,6 +310,28 @@ func FuzzySearch(exp string, pool ...string) []string <span class="cov8" title="
 </pre>
 		
 		<pre class="file" id="file5" style="display: none">package funk
+
+// Diff returns slice containing A - B
+func Diff[T comparable](a, b []T) []T <span class="cov8" title="1">{
+
+        // create lookup for b
+        elements := make(map[T]struct{})
+        for _, item := range b </span><span class="cov8" title="1">{
+                elements[item] = struct{}{}
+        }</span>
+
+        // build diff
+        <span class="cov8" title="1">diff := []T{}
+        for _, item := range a </span><span class="cov8" title="1">{
+                if _, found := elements[item]; !found </span><span class="cov8" title="1">{
+                        diff = append(diff, item)
+                }</span>
+        }
+        <span class="cov8" title="1">return diff</span>
+}
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">package funk
 
 func Map[T1 comparable, T2 any](data []T1, f func(e T1) T2) []T2 <span class="cov0" title="0">{
         result := make([]T2, len(data))
