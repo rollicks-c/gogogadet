@@ -1,7 +1,6 @@
 package funk
 
 import (
-	"golang.org/x/exp/constraints"
 	_ "golang.org/x/exp/constraints"
 	"strings"
 )
@@ -15,7 +14,7 @@ func Contains[T comparable](pool []T, item T) bool {
 	return false
 }
 
-func Max[T constraints.Ordered](pool ...T) T {
+func Max[T Ordered](pool ...T) T {
 	var maxValue T
 	for i, p := range pool {
 		if i == 0 || p > maxValue {
@@ -25,7 +24,7 @@ func Max[T constraints.Ordered](pool ...T) T {
 	return maxValue
 }
 
-func Min[T constraints.Ordered](pool ...T) T {
+func Min[T Ordered](pool ...T) T {
 	var minValue T
 	for i, p := range pool {
 		if i == 0 || p < minValue {
