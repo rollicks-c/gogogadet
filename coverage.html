@@ -264,7 +264,6 @@ func GetKeys[T1 comparable, T2 any](data map[T1]T2) []T1 <span class="cov8" titl
 		<pre class="file" id="file4" style="display: none">package funk
 
 import (
-        "golang.org/x/exp/constraints"
         _ "golang.org/x/exp/constraints"
         "strings"
 )
@@ -278,7 +277,7 @@ func Contains[T comparable](pool []T, item T) bool <span class="cov8" title="1">
         <span class="cov8" title="1">return false</span>
 }
 
-func Max[T constraints.Ordered](pool ...T) T <span class="cov8" title="1">{
+func Max[T Ordered](pool ...T) T <span class="cov8" title="1">{
         var maxValue T
         for i, p := range pool </span><span class="cov8" title="1">{
                 if i == 0 || p &gt; maxValue </span><span class="cov8" title="1">{
@@ -288,7 +287,7 @@ func Max[T constraints.Ordered](pool ...T) T <span class="cov8" title="1">{
         <span class="cov8" title="1">return maxValue</span>
 }
 
-func Min[T constraints.Ordered](pool ...T) T <span class="cov8" title="1">{
+func Min[T Ordered](pool ...T) T <span class="cov8" title="1">{
         var minValue T
         for i, p := range pool </span><span class="cov8" title="1">{
                 if i == 0 || p &lt; minValue </span><span class="cov8" title="1">{
