@@ -55,19 +55,27 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/rollicks-c/gogogadet/datetime/datetime.go (73.3%)</option>
+				<option value="file0">github.com/rollicks-c/gogogadet/datetime/datetime.go (87.5%)</option>
 				
-				<option value="file1">github.com/rollicks-c/gogogadet/fs/fs.go (0.0%)</option>
+				<option value="file1">github.com/rollicks-c/gogogadet/datetime/day.go (100.0%)</option>
 				
-				<option value="file2">github.com/rollicks-c/gogogadet/funk/filter.go (100.0%)</option>
+				<option value="file2">github.com/rollicks-c/gogogadet/datetime/month.go (100.0%)</option>
 				
-				<option value="file3">github.com/rollicks-c/gogogadet/funk/maps.go (100.0%)</option>
+				<option value="file3">github.com/rollicks-c/gogogadet/datetime/week.go (100.0%)</option>
 				
-				<option value="file4">github.com/rollicks-c/gogogadet/funk/query.go (100.0%)</option>
+				<option value="file4">github.com/rollicks-c/gogogadet/datetime/year.go (100.0%)</option>
 				
-				<option value="file5">github.com/rollicks-c/gogogadet/funk/slices.go (100.0%)</option>
+				<option value="file5">github.com/rollicks-c/gogogadet/fs/fs.go (0.0%)</option>
 				
-				<option value="file6">github.com/rollicks-c/gogogadet/funk/transform.go (0.0%)</option>
+				<option value="file6">github.com/rollicks-c/gogogadet/funk/filter.go (100.0%)</option>
+				
+				<option value="file7">github.com/rollicks-c/gogogadet/funk/maps.go (100.0%)</option>
+				
+				<option value="file8">github.com/rollicks-c/gogogadet/funk/query.go (100.0%)</option>
+				
+				<option value="file9">github.com/rollicks-c/gogogadet/funk/slices.go (100.0%)</option>
+				
+				<option value="file10">github.com/rollicks-c/gogogadet/funk/transform.go (0.0%)</option>
 				
 				</select>
 			</div>
@@ -85,16 +93,61 @@
 
 import "time"
 
-func BeginOfDay(date time.Time) time.Time <span class="cov0" title="0">{
+func DateOnly(t time.Time) time.Time <span class="cov8" title="1">{
+        y, m, d := t.Date()
+        date := time.Date(y, m, d, 0, 0, 0, 0, t.Location())
+        return date
+}</span>
+
+func CreateTime(date time.Time, timeExp string) (time.Time, error) <span class="cov8" title="1">{
+
+        // parse time
+        timeOnly, err := time.Parse("15:04", timeExp)
+        if err != nil </span><span class="cov0" title="0">{
+                return time.Time{}, err
+        }</span>
+
+        // create timestamp
+        <span class="cov8" title="1">startTime := time.Date(date.Year(), date.Month(), date.Day(), timeOnly.Hour(), timeOnly.Minute(), 0, 0, date.Location())
+        return startTime, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package datetime
+
+import "time"
+
+func BeginOfDay(date time.Time) time.Time <span class="cov8" title="1">{
         return time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, date.Location())
 }</span>
 
-func EndOfDay(date time.Time) time.Time <span class="cov0" title="0">{
+func EndOfDay(date time.Time) time.Time <span class="cov8" title="1">{
         d := BeginOfDay(date)
-        d = d.Add(time.Hour * 1)
-        d = d.Add(time.Nanosecond - 1)
+        d = d.Add(time.Hour * 24)
+        d = d.Add(time.Nanosecond * -1)
         return d
 }</span>
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package datetime
+
+import "time"
+
+func BeginOfMonth(date time.Time) time.Time <span class="cov8" title="1">{
+        y, m, _ := date.Date()
+        return time.Date(y, m, 1, 0, 0, 0, 0, date.Location())
+}</span>
+
+func EndOfMonth(date time.Time) time.Time <span class="cov8" title="1">{
+        y, m, _ := date.Date()
+        nextMonth := time.Date(y, m+1, 1, 0, 0, 0, 0, date.Location())
+        return nextMonth.Add(time.Second * -1)
+}</span>
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package datetime
+
+import "time"
 
 func BeginOfWeek(date time.Time) time.Time <span class="cov8" title="1">{
         weekDay := date.Weekday()
@@ -119,17 +172,11 @@ func EndOfWeek(date time.Time) time.Time <span class="cov8" title="1">{
         <span class="cov8" title="1">return date.Add(time.Hour * time.Duration(24) * offset)</span>
 
 }
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package datetime
 
-func BeginOfMonth(date time.Time) time.Time <span class="cov8" title="1">{
-        y, m, _ := date.Date()
-        return time.Date(y, m, 1, 0, 0, 0, 0, date.Location())
-}</span>
-
-func EndOfMonth(date time.Time) time.Time <span class="cov8" title="1">{
-        y, m, _ := date.Date()
-        nextMonth := time.Date(y, m+1, 1, 0, 0, 0, 0, date.Location())
-        return nextMonth.Add(time.Second * -1)
-}</span>
+import "time"
 
 func BeginOfYear(date time.Time) time.Time <span class="cov8" title="1">{
         y, _, _ := date.Date()
@@ -141,15 +188,9 @@ func EndOfYear(date time.Time) time.Time <span class="cov8" title="1">{
         nextYear := time.Date(y+1, 1, 1, 0, 0, 0, 0, date.Location())
         return nextYear.Add(time.Second * -1)
 }</span>
-
-func DateOnly(t time.Time) time.Time <span class="cov0" title="0">{
-        y, m, d := t.Date()
-        date := time.Date(y, m, d, 0, 0, 0, 0, t.Location())
-        return date
-}</span>
 </pre>
 		
-		<pre class="file" id="file1" style="display: none">package fs
+		<pre class="file" id="file5" style="display: none">package fs
 
 import (
         "io"
@@ -202,7 +243,7 @@ func CopyFile(src, dst string) error <span class="cov0" title="0">{
 }
 </pre>
 		
-		<pre class="file" id="file2" style="display: none">package funk
+		<pre class="file" id="file6" style="display: none">package funk
 
 type NullableTypes interface {
         int | string
@@ -242,7 +283,7 @@ func Default[T NullableTypes](exp, fallback T) T <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file3" style="display: none">package funk
+		<pre class="file" id="file7" style="display: none">package funk
 
 func PickOne[T1 comparable, T2 any](data map[T1]T2) (T2, bool) <span class="cov8" title="1">{
         for _, v := range data </span><span class="cov8" title="1">{
@@ -261,7 +302,7 @@ func GetKeys[T1 comparable, T2 any](data map[T1]T2) []T1 <span class="cov8" titl
 }
 </pre>
 		
-		<pre class="file" id="file4" style="display: none">package funk
+		<pre class="file" id="file8" style="display: none">package funk
 
 import (
         _ "golang.org/x/exp/constraints"
@@ -308,7 +349,7 @@ func FuzzySearch(exp string, pool ...string) []string <span class="cov8" title="
 }
 </pre>
 		
-		<pre class="file" id="file5" style="display: none">package funk
+		<pre class="file" id="file9" style="display: none">package funk
 
 // Diff returns slice containing A - B
 func Diff[T comparable](a, b []T) []T <span class="cov8" title="1">{
@@ -330,7 +371,7 @@ func Diff[T comparable](a, b []T) []T <span class="cov8" title="1">{
 }
 </pre>
 		
-		<pre class="file" id="file6" style="display: none">package funk
+		<pre class="file" id="file10" style="display: none">package funk
 
 func Map[T1 comparable, T2 any](data []T1, f func(e T1) T2) []T2 <span class="cov0" title="0">{
         result := make([]T2, len(data))
